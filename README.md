@@ -5,4 +5,12 @@ The main goals of this onboard are to learn the basics about some concepts by bu
 
 * Environment and tools
 
+    * node: v12.17.0
+    * nvm: v0.35.3
+    * npm: v6.14.4
+    * react: v17.0.1
+    * typescript: v4.1.3
+
 * Run and debug
+
+    Run with `$ npm start`
