@@ -13,4 +13,6 @@ The main goals of this onboard are to learn the basics about some concepts by bu
 
 * Run and debug
 
-    Run with `$ npm start`
+    In project directory:
+    1. Installing dependencies with `$ npm install`
+    2. Run with `$ npm start`
