@@ -1,14 +1,16 @@
 import React from 'react';
 import './App.css';
+import { EmailInput, PasswordInput, SubmitButton } from './components/login'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Hello World!
-        </p>
-      </header>
+      <h1>
+        Bem-vindo(a) à Taqtile!
+      </h1>
+      <EmailInput />
+      <PasswordInput />
+      <SubmitButton />
     </div>
   );
 }
