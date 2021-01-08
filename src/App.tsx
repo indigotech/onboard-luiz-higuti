@@ -6,7 +6,7 @@ function App() {
   return (
     <div className='App'>
       <h1>Bem-vindo(a) à Taqtile!</h1>
-      <form style= {inputStyles}>
+      <form style= {formStyles}>
         Email
         <EmailInput />
         Password
@@ -19,9 +19,8 @@ function App() {
 
 export default App;
 
-const inputStyles: CSSProperties = {
+const formStyles: CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  margin: '20px',
 };
