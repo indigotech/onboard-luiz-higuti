@@ -1,11 +1,13 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, Fragment } from 'react';
 
 export class EmailInput extends React.Component {
   render() {
     return (
-      <label style={labelSyles}>
-        <input type='text' name='email' />
-      </label>
+      <Fragment >
+        <label htmlFor="email">Email</label>
+        <input type='text' name='email' id="email" style={inputStyles}/>
+      </Fragment>
+
     );
   }
 }
@@ -13,9 +15,10 @@ export class EmailInput extends React.Component {
 export class PasswordInput extends React.Component {
   render() {
     return (
-      <label style={labelSyles}>
-        <input type='text' name='password' />
-      </label>
+      <Fragment>
+        <label htmlFor="password">Password</label>
+        <input type='text' name='email' id="password" style={inputStyles}/>
+      </Fragment>
     );
   }
 }
@@ -31,6 +34,6 @@ const buttonStyles: CSSProperties = {
   color: 'white',
 };
 
-const labelSyles: CSSProperties = {
-  marginBottom: '20px',
-};
+const inputStyles: CSSProperties = {
+  marginBottom: '15px',
+}

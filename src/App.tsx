@@ -7,9 +7,7 @@ function App() {
     <div className='App'>
       <h1>Bem-vindo(a) à Taqtile!</h1>
       <form style= {formStyles}>
-        Email
         <EmailInput />
-        Password
         <PasswordInput />
         <SubmitButton />
       </form>
