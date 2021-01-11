@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 
-interface LoginProps {
+interface InputProps {
   text: string;
   onTextChange: (e: string) => void;
 }
@@ -9,8 +9,8 @@ interface ButtonProps {
   validate: () => void;
 }
 
-export class EmailInput extends React.Component<LoginProps> {
-  constructor(props: LoginProps) {
+export class EmailInput extends React.Component<InputProps> {
+  constructor(props: InputProps) {
     super(props);
   }
 
@@ -31,9 +31,8 @@ export class EmailInput extends React.Component<LoginProps> {
   }
 }
 
-
-export class PasswordInput extends React.Component<LoginProps> {
-  constructor(props: LoginProps) {
+export class PasswordInput extends React.Component<InputProps> {
+  constructor(props: InputProps) {
     super(props);
   }
 
