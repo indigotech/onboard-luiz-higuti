@@ -1,16 +1,43 @@
 import React, { useState, CSSProperties } from 'react';
+import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 import './App.css';
-import { EmailInput, PasswordInput, SubmitButton } from './components/login'
+import { EmailInput, PasswordInput, SubmitButton } from './components/login';
 import { Validate } from './components/login-validator';
+
+const client = new ApolloClient({
+  uri: 'https://tq-template-server-sample.herokuapp.com/graphql',
+  cache: new InMemoryCache(),
+});
+
+function login(email: string, password: string) {
+  client.mutate({
+    mutation: gql `
+      mutation Login {
+        login (data: {email: "${email}", password: "${password}"}) {
+          user {
+            id
+          }
+          token
+        }
+      }
+    `
+  })
+  .then(result => {console.warn(result)})
+  .catch(error => {console.warn(error)})
+
+}
 
 function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleErrors () {
-    const errors = Validate(email, password)
+  function handleErrors() {
+    const errors = Validate(email, password);
     if (errors.length > 0) {
       alert(errors);
+    }
+    else {
+      login(email, password);
     }
   }
 
