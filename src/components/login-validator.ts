@@ -8,7 +8,7 @@ export function Validate (email:string, password: string) {
   }
 
   if (!passwordRegex.test(password)) {
-    errors.push('Invalid password');
+    errors.push(' Invalid password');
   }
 
   return errors
