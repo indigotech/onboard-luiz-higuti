@@ -22,8 +22,14 @@ function login(email: string, password: string) {
       }
     `
   })
-  .then(result => {console.warn(result)})
-  .catch(error => {console.warn(error)})
+  .then(result => {
+    localStorage.setItem('@token', result.data.login.token);
+    console.warn(result.data.login.token);
+  })
+  .catch(error => {
+    alert(error.message);
+    localStorage.setItem('@token', '');
+  })
 
 }
 
