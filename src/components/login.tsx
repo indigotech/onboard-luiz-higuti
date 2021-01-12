@@ -7,6 +7,7 @@ interface InputProps {
 
 interface ButtonProps {
   validate: () => void;
+  text: string;
 }
 
 export class EmailInput extends React.Component<InputProps> {
@@ -56,7 +57,7 @@ export class PasswordInput extends React.Component<InputProps> {
 export class SubmitButton extends React.Component<ButtonProps> {
   render() {
     return (
-      <button style={buttonStyles} onClick={this.props.validate}>Entrar</button>
+      <button style={buttonStyles} onClick={this.props.validate}>{this.props.text}</button>
     );
   }
 }

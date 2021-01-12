@@ -40,15 +40,18 @@ function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLogged, setIsLogged] = useState(false);
+  const [buttonText, setButtonText] = useState('Entrar');
 
   async function handleErrors() {
     const errors = Validate(email, password);
+    setButtonText('Entrando');
     if (errors.length > 0) {
       alert(errors);
     } 
     else {
       await login(email, password) ? setIsLogged(true) : setIsLogged(false)
     }
+    setButtonText('Entrar');
   }
 
   return (
@@ -57,7 +60,7 @@ function App() {
       <div style={formStyles}>
         <EmailInput text={email} onTextChange={setEmail} />
         <PasswordInput text={password} onTextChange={setPassword} />
-        <SubmitButton validate={handleErrors} />
+        <SubmitButton validate={handleErrors} text={buttonText}/>
         { isLogged ? <Redirect to='/new' /> : <Redirect to='/' /> }
       </div>
     </div>
