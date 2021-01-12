@@ -9,9 +9,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Switch>
-        <Route path='/' component={App}/>
+        <Route path='/' exact={true} component={App}/>
         <Route path='/new'>
-          <h1>Logged successfully</h1>
+          <h1>Logged successfully</h1>  
         </Route>
       </Switch>
     </Router>
