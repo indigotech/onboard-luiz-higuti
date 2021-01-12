@@ -68,7 +68,7 @@ function App() {
           }}
         />
         <SubmitButton validate={handleErrors} />
-        { isLogged ? <Redirect to='/new' /> : <></> }
+        { isLogged ? <Redirect to='/new' /> : <Redirect to='/' /> }
       </form>
     </div>
   );
