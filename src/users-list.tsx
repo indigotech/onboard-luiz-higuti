@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { ApolloClient, gql, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
 interface UserProps {
   name: string;
@@ -28,17 +30,61 @@ const UsersList: React.FC<UsersListProps> = (props) => {
   );
 };
 
+const httpLink = createHttpLink({
+  uri: 'https://tq-template-server-sample.herokuapp.com/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('@token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ?  `${token}` : ' ',
+    }
+  }
+});
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link : authLink.concat(httpLink),
+});
+
+function getUsers() :Promise<string>  {
+  return client.query({
+    query: gql`
+      query Users {
+        users {
+          nodes {
+            id
+            name
+            email
+          }
+        }
+      }
+    `,
+  })
+    .then(result => {
+      return JSON.stringify(result);
+    })
+    .catch(error => {
+      return JSON.stringify(error);
+    });
+}
+
 export const UsersListPage: React.FC = () => {
-  const users = [
-    {
-      name: 'user1',
-      email: 'email1',
-    },
-    {
-      name: 'user2',
-      email: 'email2',
-    },
-  ];
+  const [users, setUsers] = useState([]);
+
+  async function booladaFunc () {
+    const json = JSON.parse(await getUsers())
+    setUsers(json.data.users.nodes)
+    console.warn(json)
+  }
+
+  useEffect(() => {
+    booladaFunc()
+  }, [])
 
   return (
     <div>
