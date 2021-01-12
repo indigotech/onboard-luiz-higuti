@@ -10,10 +10,10 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-function login(email: string, password: string): boolean {
-  client
+function login(email: string, password: string){
+    client
     .mutate({
-      mutation: gql`
+      mutation: gql `
       mutation Login {
         login (data: {email: "${email}", password: "${password}"}) {
           user {
@@ -22,18 +22,17 @@ function login(email: string, password: string): boolean {
           token
         }
       }
-    `,
+    `
     })
     .then((result) => {
       localStorage.setItem('@token', result.data.login.token);
       return true;
     })
     .catch((error) => {
+      console.warn(error);
       alert(error.message);
-      localStorage.setItem('@token', '');
-      console.warn(error)
-    });
-  return false;
+    });    
+    return false;
 }
 
 function App() {
