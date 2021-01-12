@@ -10,8 +10,8 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-function login(email: string, password: string){
-    client
+function login(email: string, password: string): Promise<boolean>{
+    return client
     .mutate({
       mutation: gql `
       mutation Login {
@@ -26,13 +26,14 @@ function login(email: string, password: string){
     })
     .then((result) => {
       localStorage.setItem('@token', result.data.login.token);
+      console.warn('logged');
       return true;
     })
     .catch((error) => {
       console.warn(error);
       alert(error.message);
+      return false;
     });    
-    return false;
 }
 
 function App() {
@@ -40,20 +41,20 @@ function App() {
   const [password, setPassword] = useState('');
   const [isLogged, setIsLogged] = useState(false);
 
-  function handleErrors() {
+  async function handleErrors() {
     const errors = Validate(email, password);
     if (errors.length > 0) {
       alert(errors);
     } 
     else {
-      login(email, password) ? setIsLogged(true) : setIsLogged(false) 
+      await login(email, password) ? setIsLogged(true) : setIsLogged(false)
     }
   }
 
   return (
     <div className='App'>
       <h1>Bem-vindo(a) à Taqtile!</h1>
-      <form style={formStyles}>
+      <div style={formStyles}>
         <EmailInput
           text={email}
           onTextChange={(input) => {
@@ -68,7 +69,7 @@ function App() {
         />
         <SubmitButton validate={handleErrors} />
         { isLogged ? <Redirect to='/new' /> : <Redirect to='/' /> }
-      </form>
+      </div>
     </div>
   );
 }
