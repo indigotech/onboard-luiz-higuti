@@ -4,15 +4,14 @@ import './index.css';
 import App from './App';
 import ReportWebVitals from './report-web-vitals';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { UsersListPage } from './users-list';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Switch>
         <Route path='/' exact={true} component={App}/>
-        <Route path='/new'>
-          <h1>Logged successfully</h1>  
-        </Route>
+        <Route path='/users' component={UsersListPage} />
       </Switch>
     </Router>
   </React.StrictMode>,
