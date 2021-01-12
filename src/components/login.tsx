@@ -8,7 +8,10 @@ interface InputProps {
 interface ButtonProps {
   validate: () => void;
   text: string;
+<<<<<<< HEAD
   isLoading: boolean;
+=======
+>>>>>>> 7e2edbc... add login indicator
 }
 
 export class EmailInput extends React.Component<InputProps> {
@@ -62,9 +65,13 @@ export class PasswordInput extends React.Component<InputProps> {
 export class SubmitButton extends React.Component<ButtonProps> {
   render() {
     return (
+<<<<<<< HEAD
       <button style={this.props.isLoading? disableButtonStyles: buttonStyles} onClick={this.props.validate} disabled={this.props.isLoading}>
         {this.props.text}
       </button>
+=======
+      <button style={buttonStyles} onClick={this.props.validate}>{this.props.text}</button>
+>>>>>>> 7e2edbc... add login indicator
     );
   }
 }
