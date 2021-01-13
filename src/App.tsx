@@ -55,18 +55,8 @@ function App() {
     <div className='App'>
       <h1>Bem-vindo(a) à Taqtile!</h1>
       <div style={formStyles}>
-        <EmailInput
-          text={email}
-          onTextChange={(input) => {
-            setEmail(input);
-          }}
-        />
-        <PasswordInput
-          text={password}
-          onTextChange={(input) => {
-            setPassword(input);
-          }}
-        />
+        <EmailInput text={email} onTextChange={setEmail} />
+        <PasswordInput text={password} onTextChange={setPassword} />
         <SubmitButton validate={handleErrors} />
         { isLogged ? <Redirect to='/new' /> : <Redirect to='/' /> }
       </div>
