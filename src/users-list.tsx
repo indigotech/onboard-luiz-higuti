@@ -76,14 +76,14 @@ function getUsers() :Promise<string>  {
 export const UsersListPage: React.FC = () => {
   const [users, setUsers] = useState([]);
 
-  async function booladaFunc () {
+  async function setUsersList () {
     const json = JSON.parse(await getUsers())
     setUsers(json.data.users.nodes)
     console.warn(json)
   }
 
   useEffect(() => {
-    booladaFunc()
+    setUsersList()
   }, [])
 
   return (
