@@ -1,101 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import { ApolloClient, gql, InMemoryCache, createHttpLink } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+import React, { useState, useEffect } from 'react';
+import { getUsers, UsersList } from './components/users';
 
-interface UserProps {
-  name: string;
-  email: string;
-}
-
-const User: React.FC<UserProps> = (props) => {
-  return (
-    <li>
-      <p>{props.name}</p>
-      <p>{props.email}</p>
-    </li>
-  );
-};
-
-interface User  {
-  name: string;
-  email: string;
-  id: string;
-}
-
-interface UsersListProps {
-  list: Array<User>;
-}
-
-const UsersList: React.FC<UsersListProps> = (props) => {
-  return (
-    <ul>
-      {props.list.map((p) => (
-        <User email={p.email} name={p.name} key={p.id} />
-      ))}
-    </ul>
-  );
-};
-
-const httpLink = createHttpLink({
-  uri: 'https://tq-template-server-sample.herokuapp.com/graphql',
-});
-
-const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('@token');
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      authorization: token ?  `${token}` : ' ',
-    }
-  }
-});
-
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link : authLink.concat(httpLink),
-});
-
-function getUsers() :Promise<string>  {
-  return client.query({
-    query: gql`
-      query Users {
-        users {
-          nodes {
-            id
-            name
-            email
-          }
-        }
-      }
-    `,
-  })
-    .then(result => {
-      return JSON.stringify(result);
-    })
-    .catch(error => {
-      return JSON.stringify(error);
-    });
-}
+const usersPerPage = 10 ;
 
 export const UsersListPage: React.FC = () => {
   const [users, setUsers] = useState([]);
+  const [next, setNext] = useState(0);
+  const [usersToShow, setUsersToShow] = useState([]);
 
   async function setUsersList () {
-    const json = JSON.parse(await getUsers())
-    setUsers(json.data.users.nodes)
-    console.warn(json)
+    const json = JSON.parse(await getUsers());
+    setUsers(json.data.users.nodes);
   }
 
   useEffect(() => {
-    setUsersList()
+    setUsersList();
   }, [])
+
+  const showMoreUsers = (start:number, end:number) => {
+    const moreUsers = [...usersToShow, ...users.slice(start, end)];
+    setUsersToShow(moreUsers);
+  }
+
+  const handleShowMore = () => {
+    showMoreUsers(next, next + usersPerPage);
+    setNext(next + usersPerPage)
+  }
 
   return (
     <div>
       <h1>Users List</h1>
-      <UsersList list={users} />
+      <UsersList list={usersToShow} />
+      <button onClick={handleShowMore}>ver mais</button>
     </div>
   );
 };
