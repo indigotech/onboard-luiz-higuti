@@ -12,12 +12,20 @@ export const UsersListPage: React.FC = () => {
   
   async function setUsersList () {
     try{
+<<<<<<< HEAD
       const json = await getUsers(page, usersPerPage);
       setUsers(users.concat(json.data.users.nodes));
       if (!json.data.users.pageInfo.hasNextPage) {
         setHasNextPage(false);
       }
       setPage(prevPage => prevPage + usersPerPage);
+=======
+      const json = JSON.parse(await getUsers(page, usersPerPage));
+      setUsers(users.concat(json.data.users.nodes));
+      !(json.data.users.pageInfo.hasNextPage) ? setHasNextPage(false) : null;
+      console.warn(json.data.users.pageInfo.hasNextPage);
+      setPage(page + usersPerPage);
+>>>>>>> 3c48919... add button functionalities
     } catch (error) {
       alert(error);
     }
@@ -42,6 +50,7 @@ export const UsersListPage: React.FC = () => {
 };
 
 
+<<<<<<< HEAD
 =======
 import React from 'react';
 
@@ -97,3 +106,5 @@ export const UsersListPage: React.FC = () => {
 	)
 }
 >>>>>>> 91d5e16... add users list page
+=======
+>>>>>>> 3c48919... add button functionalities
