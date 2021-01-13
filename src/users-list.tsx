@@ -1,37 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { getUsers, UsersList } from './components/users';
+import { buttonStyles } from './components/login';
 
 const usersPerPage = 10 ;
 
 export const UsersListPage: React.FC = () => {
   const [users, setUsers] = useState([]);
-  const [next, setNext] = useState(0);
-  const [usersToShow, setUsersToShow] = useState([]);
-
+  const [page, setPage] = useState(0);
+  const [hasNextPage, setHasNextPage] = useState(true);
+  
   async function setUsersList () {
-    const json = JSON.parse(await getUsers());
-    setUsers(json.data.users.nodes);
+    try{
+      const json = JSON.parse(await getUsers(page, usersPerPage));
+      setUsers(users.concat(json.data.users.nodes));
+      !(json.data.users.pageInfo.hasNextPage) ? setHasNextPage(false) : null;
+      console.warn(json.data.users.pageInfo.hasNextPage);
+      setPage(page + usersPerPage);
+    } catch (error) {
+      alert(error);
+    }
   }
 
   useEffect(() => {
     setUsersList();
   }, [])
 
-  const showMoreUsers = (start:number, end:number) => {
-    const moreUsers = [...usersToShow, ...users.slice(start, end)];
-    setUsersToShow(moreUsers);
-  }
-
   const handleShowMore = () => {
-    showMoreUsers(next, next + usersPerPage);
-    setNext(next + usersPerPage)
+    setUsersList()
   }
-
   return (
     <div>
       <h1>Users List</h1>
-      <UsersList list={usersToShow} />
-      <button onClick={handleShowMore}>ver mais</button>
+      <UsersList list={users} />
+      {hasNextPage ? 
+        <button onClick={handleShowMore} style={buttonStyles}>ver mais</button> : <></>
+      }
     </div>
   );
 };
+
+

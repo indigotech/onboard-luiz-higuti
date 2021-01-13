@@ -77,9 +77,11 @@ const inputStyles: CSSProperties = {
   marginBottom: '15px',
 };
 
-const buttonStyles: CSSProperties = {
+export const buttonStyles: CSSProperties = {
   backgroundColor: 'blue',
   color: 'white',
+  margin: '15px',
+  borderRadius: '10px',
 };
 
 const disableButtonStyles: CSSProperties = {
