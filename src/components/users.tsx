@@ -57,25 +57,27 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
 });
 
-export function getUsers(): Promise<string> {
-  return client
-    .query({
-      query: gql`
+export async function getUsers(offset:number, limit:number): Promise<string> {
+  try {
+		const result = await client
+			.query({
+				query: gql`
         query Users {
-          users(pageInfo: { offset: 0, limit: 999 }) {
+          users(pageInfo: { offset: ${offset} , limit: ${limit} }) {
             nodes {
               id
               name
               email
-            }
+            },
+						pageInfo {
+							hasNextPage
+						}
           }
         }
       `,
-    })
-    .then((result) => {
-      return JSON.stringify(result);
-    })
-    .catch((error) => {
-      return JSON.stringify(error);
-    });
+			});
+		return JSON.stringify(result);
+	} catch (error) {
+		return JSON.stringify(error);
+	}
 }
