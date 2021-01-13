@@ -7,10 +7,6 @@ interface UserProps {
   email: string;
 }
 
-interface UsersListProps {
-  list: Array<UserProps>;
-}
-
 const User: React.FC<UserProps> = (props) => {
   return (
     <li>
@@ -20,11 +16,21 @@ const User: React.FC<UserProps> = (props) => {
   );
 };
 
+interface User  {
+  name: string;
+  email: string;
+  id: string;
+}
+
+interface UsersListProps {
+  list: Array<User>;
+}
+
 const UsersList: React.FC<UsersListProps> = (props) => {
   return (
     <ul>
       {props.list.map((p) => (
-        <User email={p.email} name={p.name} key={p.name} />
+        <User email={p.email} name={p.name} key={p.id} />
       ))}
     </ul>
   );
