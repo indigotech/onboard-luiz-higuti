@@ -82,6 +82,8 @@ export const buttonStyles: CSSProperties = {
   color: 'white',
   margin: '15px',
   borderRadius: '10px',
+  width: '150px',
+  height: '30px'
 };
 
 const disableButtonStyles: CSSProperties = {
