@@ -66,7 +66,7 @@ function App() {
         <EmailInput text={email} onTextChange={setEmail} />
         <PasswordInput text={password} onTextChange={setPassword} />
         <SubmitButton validate={handleErrors} text={buttonText} isLoading={isLoading} />
-        { isLogged ? <Redirect to='/new' /> : <Redirect to='/' /> }
+        { isLogged ? <Redirect to='/users' /> : <Redirect to='/' /> }
       </div>
     </div>
   );
