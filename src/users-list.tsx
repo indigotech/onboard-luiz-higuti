@@ -16,7 +16,7 @@ export const UsersListPage: React.FC = () => {
       if (!json.data.users.pageInfo.hasNextPage) {
         setHasNextPage(false);
       }
-      setPage(page + usersPerPage);
+      setPage(prevPage => prevPage + usersPerPage);
     } catch (error) {
       alert(error);
     }

@@ -17,9 +17,9 @@ const UserListItem: React.FC<UserListItemProps> = (props) => {
 };
 
 interface User {
-	name:string;
-	email:string;
-	id:string;
+  name: string;
+  email: string;
+  id: string;
 }
 
 interface UsersListProps {
@@ -41,9 +41,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
   const token = localStorage.getItem('@token');
-  // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
@@ -57,11 +55,10 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
 });
 
-export async function getUsers(offset:number, limit:number): Promise<string> {
+export async function getUsers(offset: number, limit: number): Promise<string> {
   try {
-		const result = await client
-			.query({
-				query: gql`
+    const result = await client.query({
+      query: gql`
         query Users {
           users(pageInfo: { offset: ${offset} , limit: ${limit} }) {
             nodes {
@@ -75,9 +72,9 @@ export async function getUsers(offset:number, limit:number): Promise<string> {
           }
         }
       `,
-			});
-		return JSON.stringify(result);
-	} catch (error) {
-		return JSON.stringify(error);
-	}
+    });
+    return JSON.stringify(result);
+  } catch (error) {
+    return JSON.stringify(error);
+  }
 }

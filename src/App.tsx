@@ -10,11 +10,10 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-async function login(email: string, password: string): Promise<boolean>{
-    try {
-    const result = await client
-      .mutate({
-        mutation: gql`
+async function login(email: string, password: string): Promise<boolean> {
+  try {
+    const result = await client.mutate({
+      mutation: gql`
       mutation Login {
         login (data: {email: "${email}", password: "${password}"}) {
           user {
@@ -23,8 +22,8 @@ async function login(email: string, password: string): Promise<boolean>{
           token
         }
       }
-    `
-      });
+    `,
+    });
     localStorage.setItem('@token', result.data.login.token);
     console.warn('logged');
     return true;
@@ -32,7 +31,7 @@ async function login(email: string, password: string): Promise<boolean>{
     console.warn(error);
     alert(error.message);
     return false;
-  }    
+  }
 }
 
 function App() {
@@ -47,9 +46,8 @@ function App() {
     setIsLoading(true);
     if (errors.length > 0) {
       alert(errors);
-    } 
-    else {
-      await login(email, password) ? setIsLogged(true) : setIsLogged(false)
+    } else {
+      (await login(email, password)) ? setIsLogged(true) : setIsLogged(false);
     }
     setIsLoading(false);
   }
