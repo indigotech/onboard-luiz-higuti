@@ -65,10 +65,10 @@ export async function getUsers(offset: number, limit: number) {
               id
               name
               email
-            },
-						pageInfo {
-							hasNextPage
-						}
+            }
+            pageInfo {
+              hasNextPage
+            }
           }
         }
       `,
