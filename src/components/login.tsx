@@ -62,7 +62,11 @@ export class PasswordInput extends React.Component<InputProps> {
 export class SubmitButton extends React.Component<ButtonProps> {
   render() {
     return (
-      <button style={this.props.isLoading? disableButtonStyles: buttonStyles} onClick={this.props.validate} disabled={this.props.isLoading}>
+      <button
+        style={this.props.isLoading ? disableButtonStyles : buttonStyles}
+        onClick={this.props.validate}
+        disabled={this.props.isLoading}
+      >
         {this.props.text}
       </button>
     );
