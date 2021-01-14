@@ -55,7 +55,7 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
 });
 
-export async function getUsers(offset: number, limit: number): Promise<string> {
+export async function getUsers(offset: number, limit: number) {
   try {
     const result = await client.query({
       query: gql`
@@ -73,8 +73,8 @@ export async function getUsers(offset: number, limit: number): Promise<string> {
         }
       `,
     });
-    return JSON.stringify(result);
+    return result;
   } catch (error) {
-    return JSON.stringify(error);
+    return error;
   }
 }

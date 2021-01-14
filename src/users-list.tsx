@@ -11,7 +11,7 @@ export const UsersListPage: React.FC = () => {
   
   async function setUsersList () {
     try{
-      const json = JSON.parse(await getUsers(page, usersPerPage));
+      const json = await getUsers(page, usersPerPage);
       setUsers(users.concat(json.data.users.nodes));
       if (!json.data.users.pageInfo.hasNextPage) {
         setHasNextPage(false);
