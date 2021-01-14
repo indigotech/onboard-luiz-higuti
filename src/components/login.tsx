@@ -5,7 +5,7 @@ interface InputProps {
   onTextChange: (e: string) => void;
 }
 
-interface ButtonProps {
+export interface ButtonProps {
   validate: () => void;
   text: string;
   isLoading: boolean;
@@ -86,7 +86,7 @@ export const buttonStyles: CSSProperties = {
   height: '30px'
 };
 
-const disableButtonStyles: CSSProperties = {
+export const disableButtonStyles: CSSProperties = {
   backgroundColor: 'grey',
   color: 'white',
 };

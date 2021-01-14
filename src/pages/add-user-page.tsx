@@ -1,7 +1,8 @@
+import { gql, useMutation } from '@apollo/client';
 import React, { CSSProperties, useState } from 'react';
+import { Redirect } from 'react-router';
 import '../App.css';
-import { Input, Button } from '../components/add-user';
-import { gql } from '@apollo/client';
+import { Button, Input } from '../components/add-user';
 import { ValidateUser } from '../components/user-validator';
 
 export const AddUser = () => {
@@ -9,7 +10,9 @@ export const AddUser = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [birthDate, setBirthDate] = useState('');
-  const role = 'user';
+  const [userAdded, setUserAdded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const role = "user";
 
   const addUserMutation = gql`
     mutation createUser {
@@ -21,25 +24,41 @@ export const AddUser = () => {
     }
   `;
 
-  const handleErros = () => {
+  const [addUser] = useMutation(addUserMutation);
+
+  const handleErros = async () => {
     const errors = ValidateUser(name, email, phone, birthDate);
     if (errors.length > 0) {
       alert(errors);
     }
+    else {
+      setIsLoading(true);
+      try{
+        await addUser();
+        setUserAdded(true);
+      } catch (error) {
+        alert(error);
+        setIsLoading(false);
+      }
+    }
   }
+
+  const buttonText = isLoading ? 'Adicionando...' : 'Adicionar' ;
 
   return (
     <div className='App'>
       <h1>Adicionar usuário</h1>
       <div style={formStyles}>
-        <Input text={name} onTextChange={setName} field={'name'} />
-        <Input text={email} onTextChange={setEmail} field={'email'} />
-        <Input text={phone} onTextChange={setPhone} field={'phone'} />
-        <Input text={birthDate} onTextChange={setBirthDate} field={'birthDate'} />
+        <Input text={name} onTextChange={setName} field={'Nome'} />
+        <Input text={email} onTextChange={setEmail} field={'E-mail'} />
+        <Input text={phone} onTextChange={setPhone} field={'Telefone'} />
+        <Input text={birthDate} onTextChange={setBirthDate} field={'Data de Nascimento'} />
         <Button
-          text='Adicionar'
-          submit={handleErros}
+          text={buttonText}
+          validate={handleErros}
+          isLoading={isLoading}
         />
+        {userAdded ? <Redirect to='/users' /> : <Redirect to='/add-user'/>}
       </div>
     </div>
   );

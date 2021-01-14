@@ -1,36 +1,38 @@
 import React from 'react';
-import '../App.css'
-import { inputStyles, buttonStyles } from './login';
+import '../App.css';
+import { inputStyles, buttonStyles, ButtonProps, disableButtonStyles } from './login';
 
 interface inputProps {
   text: string;
-  onTextChange: (e:string) => void;
+  onTextChange: (e: string) => void;
   field: string;
 }
 
-export const Input : React.FC<inputProps> =  (props) => {
+export const Input: React.FC<inputProps> = (props) => {
   return (
     <>
       <label htmlFor={props.field}>{props.field}</label>
       <input
         type='text'
         name={props.field}
-        id={props.field+'Input'}
         style={inputStyles}
-        onChange={e => { props.onTextChange(e.target.value) }}
+        onChange={(e) => {
+          props.onTextChange(e.target.value);
+        }}
         value={props.text}
       />
     </>
   );
-}
+};
 
-interface buttonProps {
-  submit: () => void;
-  text: string;
-}
-
-export const Button: React.FC<buttonProps> = (props) => {
+export const Button: React.FC<ButtonProps> = (props) => {
   return (
-    <button style={buttonStyles} onClick={props.submit}>{props.text}</button>
+    <button
+      style={props.isLoading ? disableButtonStyles : buttonStyles}
+      onClick={props.validate}
+      disabled={props.isLoading}
+    >
+      {props.text}
+    </button>
   );
-} 
+};
