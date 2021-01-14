@@ -73,7 +73,7 @@ export class SubmitButton extends React.Component<ButtonProps> {
   }
 }
 
-const inputStyles: CSSProperties = {
+export const inputStyles: CSSProperties = {
   marginBottom: '15px',
 };
 
