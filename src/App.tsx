@@ -1,14 +1,10 @@
 import React, { useState, CSSProperties } from 'react';
-import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
+import { gql } from '@apollo/client';
 import './App.css';
 import { EmailInput, PasswordInput, SubmitButton } from './components/login';
 import { Validate } from './components/login-validator';
 import { Redirect } from 'react-router';
-
-const client = new ApolloClient({
-  uri: 'https://tq-template-server-sample.herokuapp.com/graphql',
-  cache: new InMemoryCache(),
-});
+import { client } from './graphql-client';
 
 async function login(email: string, password: string): Promise<boolean> {
   try {
