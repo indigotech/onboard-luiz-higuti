@@ -1,4 +1,4 @@
-import React, { useState, CSSProperties, useEffect } from 'react';
+import React, { useState, CSSProperties } from 'react';
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 import './App.css';
 import { EmailInput, PasswordInput, SubmitButton } from './components/login';
@@ -25,10 +25,8 @@ async function login(email: string, password: string): Promise<boolean> {
     `,
     });
     localStorage.setItem('@token', result.data.login.token);
-    console.warn('logged');
     return true;
   } catch (error) {
-    console.warn(error);
     alert(error.message);
     return false;
   }
@@ -38,23 +36,26 @@ function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLogged, setIsLogged] = useState(false);
-  const [buttonText, setButtonText] = useState('Entrar');
   const [isLoading, setIsLoading] = useState(false);
 
   async function handleErrors() {
     const errors = Validate(email, password);
-    setIsLoading(true);
     if (errors.length > 0) {
       alert(errors);
-    } else {
-      (await login(email, password)) ? setIsLogged(true) : setIsLogged(false);
+    } 
+    else {
+      setIsLoading(true);
+      try {
+        await login(email, password);
+        setIsLogged(true);
+      } catch (error) {
+        alert(error);
+        setIsLoading(false);
+      }
     }
-    setIsLoading(false);
   }
 
-  useEffect(() => {
-    isLoading? setButtonText('Entrando...') : setButtonText('Entrar');
-  }, [isLoading]);
+  const buttonText = isLoading ? 'Carregando...' : 'Entrar';
 
   return (
     <div className='App'>
