@@ -8,6 +8,7 @@ import { UsersListPage } from './users-list';
 import { AddUser } from './pages/add-user-page';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './graphql-client';
+import { UserDetailsPage } from './pages/user-details-page';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.render(
           <Route path='/' exact={true} component={App} />
           <Route path='/users' component={UsersListPage} />
           <Route path='/add-user' component={AddUser} />
+          <Route path='/user' component={UserDetailsPage} />
         </Switch>
       </Router>
     </ApolloProvider>

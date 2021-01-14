@@ -36,6 +36,7 @@ export const AddUser = () => {
       try{
         await addUser();
         setUserAdded(true);
+        alert('Usuário adicionado');
       } catch (error) {
         alert(error);
         setIsLoading(false);
