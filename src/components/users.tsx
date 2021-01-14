@@ -2,12 +2,12 @@ import React from 'react';
 import { ApolloClient, gql, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-interface UserProps {
+interface UserListItemProps {
   name: string;
   email: string;
 }
 
-const User: React.FC<UserProps> = (props) => {
+const UserListItem: React.FC<UserListItemProps> = (props) => {
   return (
     <li>
       <p>{props.name}</p>
@@ -30,7 +30,7 @@ export const UsersList: React.FC<UsersListProps> = (props) => {
   return (
     <ul>
       {props.list.map((p) => (
-        <User email={p.email} name={p.name} key={p.id} />
+        <UserListItem email={p.email} name={p.name} key={p.id} />
       ))}
     </ul>
   );
