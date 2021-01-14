@@ -3,9 +3,11 @@ import React, { CSSProperties } from 'react';
 import { Details } from '../components/user-details';
 import { headerStyles } from '../users-list';
 import { UserDetails } from '../graphql-client';
+import { useParams } from 'react-router';
 
 export const UserDetailsPage = () => {
-  const { loading, error, data } = useQuery(UserDetails, { variables: { id: 153 } });
+  const { id } = useParams<{id: string}>()
+  const { loading, error, data } = useQuery(UserDetails, { variables: { id: id } });
 
   if (loading) {
     return <h1 style={queryStatusStyle}>Carregando...</h1>;

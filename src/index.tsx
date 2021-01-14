@@ -18,7 +18,7 @@ ReactDOM.render(
           <Route path='/' exact={true} component={App} />
           <Route path='/users' component={UsersListPage} />
           <Route path='/add-user' component={AddUser} />
-          <Route path='/user' component={UserDetailsPage} />
+          <Route path='/user/:id' exact={true} children={<UserDetailsPage />} />
         </Switch>
       </Router>
     </ApolloProvider>
