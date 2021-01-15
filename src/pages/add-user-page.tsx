@@ -1,9 +1,8 @@
 import { useMutation } from '@apollo/client';
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
-import '../App.css';
 import { Input, StyledButton } from '../components/form';
-import { StyledH1 } from '../components/styled-components';
+import { CenteredDiv, StyledH1 } from '../components/styled-components';
 import { ValidateUser } from '../components/user-validator';
 import { AddUserMutation } from '../graphql-client';
 
@@ -37,7 +36,7 @@ export const AddUser = () => {
   const buttonText = isLoading ? 'Adicionando...' : 'Adicionar';
 
   return (
-    <div className='App'>
+    <CenteredDiv>
       <StyledH1>Adicionar usuário</StyledH1>
       <Input text={name} onTextChange={setName} field={'Nome'} />
       <Input text={email} onTextChange={setEmail} field={'E-mail'} />
@@ -45,6 +44,6 @@ export const AddUser = () => {
       <Input text={birthDate} onTextChange={setBirthDate} field={'Data de Nascimento'} />
       <StyledButton text={buttonText} validate={handleErros} isLoading={isLoading} />
       {userAdded ? <Redirect to='/users' /> : <Redirect to='/add-user' />}
-    </div>
+    </CenteredDiv>
   );
 };

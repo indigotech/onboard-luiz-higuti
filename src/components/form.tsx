@@ -1,5 +1,4 @@
 import React from 'react';
-import '../App.css';
 import { Button, StyledLabel } from './styled-components';
 
 interface inputProps {

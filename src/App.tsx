@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { gql } from '@apollo/client';
-import './App.css';
 import { Validate } from './components/login-validator';
 import { Redirect } from 'react-router';
 import { client } from './graphql-client';
-import { StyledInput, StyledH1 } from './components/styled-components';
+import { StyledInput, StyledH1, CenteredDiv } from './components/styled-components';
 import { StyledButton } from './components/form';
 
 async function login(email: string, password: string): Promise<boolean> {
@@ -58,13 +57,13 @@ function App() {
   const buttonText = isLoading ? 'Carregando...' : 'Entrar';
 
   return (
-    <div className='App'>
+    <CenteredDiv>
       <StyledH1>Bem-vindo(a) à Taqtile!</StyledH1>
       <StyledInput text={email} onTextChange={setEmail} field={'E-mail'} />
       <StyledInput text={password} onTextChange={setPassword} field={'Senha'} />
       <StyledButton validate={handleErrors} text={buttonText} isLoading={isLoading} />
       {isLogged ? <Redirect to='/users' /> : <Redirect to='/' />}
-    </div>
+    </CenteredDiv>
   );
 }
 

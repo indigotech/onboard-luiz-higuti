@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import React, { CSSProperties } from 'react';
 import { Details } from '../components/user-details';
-import { headerStyles } from '../users-list';
+import { headerStyles } from './users-list-page';
 import { UserDetails } from '../graphql-client';
 import { useParams } from 'react-router';
 

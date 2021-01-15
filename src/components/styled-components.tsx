@@ -32,3 +32,7 @@ export const StyledH1 = styled.h1`
   margin-top: 20px;
   margin-bottom: 20px;
 `;
+
+export const CenteredDiv = styled.div`
+  text-align: center;
+`;

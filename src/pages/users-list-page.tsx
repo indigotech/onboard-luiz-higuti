@@ -1,5 +1,5 @@
 import React, { useState, useEffect, CSSProperties } from 'react';
-import { getUsers, UsersList } from './components/users';
+import { getUsers, UsersList } from '../components/users';
 import { Link } from 'react-router-dom';
 
 const usersPerPage = 10 ;
