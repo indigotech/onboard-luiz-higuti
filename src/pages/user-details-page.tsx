@@ -6,7 +6,7 @@ import { UserDetails } from '../graphql-client';
 import { useParams } from 'react-router';
 
 export const UserDetailsPage = () => {
-  const { id } = useParams<{id: string}>()
+  const { id } = useParams<{ id: string }>();
   const { loading, error, data } = useQuery(UserDetails, { variables: { id: id } });
 
   if (loading) {
@@ -20,7 +20,14 @@ export const UserDetailsPage = () => {
   return (
     <div>
       <h1 style={headerStyles}>{data.user.name}</h1>
-      <Details details={data.user} />
+      <Details
+        name={data.user.name}
+        id={data.user.id}
+        phone={data.user.phone}
+        birthDate={data.user.birthDate}
+        email={data.user.email}
+        role={data.user.role}
+      />
     </div>
   );
 };

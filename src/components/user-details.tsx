@@ -3,19 +3,19 @@ import '../App';
 
 interface DetailsItemProps {
   name: string;
-  value: string;
+  text: string;
 }
 
 const DetailsListItem: React.FC<DetailsItemProps> = (props) => {
   return (
     <li style={detailsItemStyles}>
       <b style={{ marginRight: '5px' }}>{props.name}: </b>
-      {props.value}
+      {props.text}
     </li>
   );
 };
 
-interface DetailsProps {
+interface UserDetailsProps {
   id: string;
   name: string;
   phone: string;
@@ -24,18 +24,14 @@ interface DetailsProps {
   role: string;
 }
 
-interface DetailsObjectProps {
-  details: DetailsProps;
-}
-
-export const Details: React.FC<DetailsObjectProps> = (props) => {
+export const Details: React.FC<UserDetailsProps> = (props) => {
   return (
     <ul style={detailsStyles}>
-      <DetailsListItem name={'Id'} value={props.details.id} />
-      <DetailsListItem name={'Nome'} value={props.details.name} />
-      <DetailsListItem name={'Telefone'} value={props.details.phone} />
-      <DetailsListItem name={'E-mail'} value={props.details.email} />
-      <DetailsListItem name={'Role'} value={props.details.role} />
+      <DetailsListItem name='Id' text={props.id} />
+      <DetailsListItem name='Nome' text={props.name} />
+      <DetailsListItem name='Telefone' text={props.phone} />
+      <DetailsListItem name='E-mail' text={props.email} />
+      <DetailsListItem name='Role' text={props.role} />
     </ul>
   );
 };
