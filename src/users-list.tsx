@@ -59,9 +59,9 @@ const addButtonStyles: CSSProperties = {
   backgroundColor: 'black',
 };
 
-const headerStyles: CSSProperties = {
+export const headerStyles: CSSProperties = {
   display: 'flex',
   flexDirection: 'row',
-  padding: '20px',
+  padding: '15px',
   alignItems: 'center', 
 }

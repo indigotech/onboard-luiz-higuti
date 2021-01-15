@@ -1,16 +1,19 @@
 import React from 'react';
 import { gql } from '@apollo/client';
 import { client } from '../graphql-client';
+import { Link } from 'react-router-dom';
+
 
 interface UserListItemProps {
   name: string;
   email: string;
+  id: string;
 }
 
 const UserListItem: React.FC<UserListItemProps> = (props) => {
   return (
     <li>
-      <p>{props.name}</p>
+      <Link to={`/user/${props.id}`}>{props.name}</Link>
       <p>{props.email}</p>
     </li>
   );
@@ -30,7 +33,7 @@ export const UsersList: React.FC<UsersListProps> = (props) => {
   return (
     <ul>
       {props.list.map((p) => (
-        <UserListItem email={p.email} name={p.name} key={p.id} />
+        <UserListItem email={p.email} name={p.name} key={p.id} id={p.id} />
       ))}
     </ul>
   );
