@@ -39,15 +39,13 @@ function App() {
     const errors = Validate(email, password);
     if (errors.length > 0) {
       alert(errors);
-    } 
-    else {
+    } else {
       setIsLoading(true);
       try {
-        if (await login(email,password)) {
+        if (await login(email, password)) {
           setIsLoading(true);
           setIsLogged(true);
-        }
-        else {
+        } else {
           setIsLoading(false);
           setIsLogged(false);
         }
@@ -57,19 +55,15 @@ function App() {
       }
     }
   }
-
-  console.warn(isLogged)
   const buttonText = isLoading ? 'Carregando...' : 'Entrar';
 
   return (
     <div className='App'>
       <StyledH1>Bem-vindo(a) à Taqtile!</StyledH1>
-      <div>
-        <StyledInput text={email} onTextChange={setEmail} field={'E-mail'}/>
-        <StyledInput text={password} onTextChange={setPassword} field={'Senha'}/>
-        <StyledButton validate={handleErrors} text={buttonText} isLoading={isLoading} />
-        { isLogged ? <Redirect to='/users' /> : <Redirect to='/' /> }
-      </div>
+      <StyledInput text={email} onTextChange={setEmail} field={'E-mail'} />
+      <StyledInput text={password} onTextChange={setPassword} field={'Senha'} />
+      <StyledButton validate={handleErrors} text={buttonText} isLoading={isLoading} />
+      {isLogged ? <Redirect to='/users' /> : <Redirect to='/' />}
     </div>
   );
 }
