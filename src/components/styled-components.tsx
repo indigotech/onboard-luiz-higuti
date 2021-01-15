@@ -1,9 +1,7 @@
 import styled from 'styled-components';
-import { Input } from './form';
 
-export const StyledInput = styled(Input)`
-  border: 1px;
-  color: gray;
+export const StyledInput = styled.input`
+  border: 1px gray #777777;
 `;
 
 export const StyledLabel = styled.label`
@@ -29,10 +27,36 @@ export const StyledH1 = styled.h1`
   font-size: 24px;
   font-weight: bold;
   color: black;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px;
 `;
 
 export const CenteredDiv = styled.div`
   text-align: center;
+  padding: 20px;
+`;
+
+export const StyledHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const StyledAddButton = styled.button`
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  color: white;
+  background: black;
+`;
+
+export const StyledLi = styled.li`
+  margin: 12px;
+`;
+
+export const StyledUl = styled.ul`
+  list-style-position: inside;
+  align-dtems: flex-start;
+  display: flex;
+  flex-direction: column;
 `;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyledLabel } from './styled-components';
+import { Button, StyledInput, StyledLabel } from './styled-components';
 
 interface inputProps {
   text: string;
@@ -11,7 +11,7 @@ export const Input: React.FC<inputProps> = (props, { className }) => {
   return (
     <div className={className}>
       <StyledLabel htmlFor={props.field}>{props.field}</StyledLabel>
-      <input
+      <StyledInput
         type='text'
         name={props.field}
         onChange={(e) => {

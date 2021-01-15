@@ -1,24 +1,16 @@
 import React, { useState } from 'react';
-import { gql } from '@apollo/client';
-import { Validate } from './components/login-validator';
 import { Redirect } from 'react-router';
+import { LoginMutation } from './graphql-requests';
+import { Input, StyledButton } from './components/form';
+import { Validate } from './components/login-validator';
+import { CenteredDiv, StyledH1 } from './components/styled-components';
 import { client } from './graphql-client';
-import { StyledInput, StyledH1, CenteredDiv } from './components/styled-components';
-import { StyledButton } from './components/form';
 
 async function login(email: string, password: string): Promise<boolean> {
   try {
     const result = await client.mutate({
-      mutation: gql`
-      mutation Login {
-        login (data: {email: "${email}", password: "${password}"}) {
-          user {
-            id
-          }
-          token
-        }
-      }
-    `,
+      mutation: LoginMutation,
+      variables: { email, password },
     });
     localStorage.setItem('@token', result.data.login.token);
     return true;
@@ -59,8 +51,8 @@ function App() {
   return (
     <CenteredDiv>
       <StyledH1>Bem-vindo(a) à Taqtile!</StyledH1>
-      <StyledInput text={email} onTextChange={setEmail} field={'E-mail'} />
-      <StyledInput text={password} onTextChange={setPassword} field={'Senha'} />
+      <Input text={email} onTextChange={setEmail} field={'E-mail'} />
+      <Input text={password} onTextChange={setPassword} field={'Senha'} />
       <StyledButton validate={handleErrors} text={buttonText} isLoading={isLoading} />
       {isLogged ? <Redirect to='/users' /> : <Redirect to='/' />}
     </CenteredDiv>

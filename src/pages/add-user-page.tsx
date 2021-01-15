@@ -4,7 +4,7 @@ import { Redirect } from 'react-router';
 import { Input, StyledButton } from '../components/form';
 import { CenteredDiv, StyledH1 } from '../components/styled-components';
 import { ValidateUser } from '../components/user-validator';
-import { AddUserMutation } from '../graphql-client';
+import { AddUserMutation } from '../graphql-requests';
 
 export const AddUser = () => {
   const [name, setName] = useState('');
