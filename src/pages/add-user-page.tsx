@@ -2,7 +2,8 @@ import { gql, useMutation } from '@apollo/client';
 import React, { CSSProperties, useState } from 'react';
 import { Redirect } from 'react-router';
 import '../App.css';
-import { Button, Input } from '../components/add-user';
+import { StyledButton, Input } from '../components/form';
+import { StyledH1 } from '../components/styled-components';
 import { ValidateUser } from '../components/user-validator';
 
 export const AddUser = () => {
@@ -48,13 +49,13 @@ export const AddUser = () => {
 
   return (
     <div className='App'>
-      <h1>Adicionar usuário</h1>
+      <StyledH1>Adicionar usuário</StyledH1>
       <div style={formStyles}>
         <Input text={name} onTextChange={setName} field={'Nome'} />
         <Input text={email} onTextChange={setEmail} field={'E-mail'} />
         <Input text={phone} onTextChange={setPhone} field={'Telefone'} />
         <Input text={birthDate} onTextChange={setBirthDate} field={'Data de Nascimento'} />
-        <Button
+        <StyledButton
           text={buttonText}
           validate={handleErros}
           isLoading={isLoading}

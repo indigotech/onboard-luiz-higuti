@@ -1,10 +1,11 @@
-import React, { useState, CSSProperties } from 'react';
+import React, { useState } from 'react';
 import { gql } from '@apollo/client';
 import './App.css';
-import { EmailInput, PasswordInput, SubmitButton } from './components/login';
 import { Validate } from './components/login-validator';
 import { Redirect } from 'react-router';
 import { client } from './graphql-client';
+import { StyledInput, StyledH1 } from './components/styled-components';
+import { StyledButton } from './components/form';
 
 async function login(email: string, password: string): Promise<boolean> {
   try {
@@ -42,8 +43,14 @@ function App() {
     else {
       setIsLoading(true);
       try {
-        await login(email, password);
-        setIsLogged(true);
+        if (await login(email,password)) {
+          setIsLoading(true);
+          setIsLogged(true);
+        }
+        else {
+          setIsLoading(false);
+          setIsLogged(false);
+        }
       } catch (error) {
         alert(error);
         setIsLoading(false);
@@ -51,15 +58,16 @@ function App() {
     }
   }
 
+  console.warn(isLogged)
   const buttonText = isLoading ? 'Carregando...' : 'Entrar';
 
   return (
     <div className='App'>
-      <h1>Bem-vindo(a) à Taqtile!</h1>
-      <div style={formStyles}>
-        <EmailInput text={email} onTextChange={setEmail} />
-        <PasswordInput text={password} onTextChange={setPassword} />
-        <SubmitButton validate={handleErrors} text={buttonText} isLoading={isLoading} />
+      <StyledH1>Bem-vindo(a) à Taqtile!</StyledH1>
+      <div>
+        <StyledInput text={email} onTextChange={setEmail} field={'E-mail'}/>
+        <StyledInput text={password} onTextChange={setPassword} field={'Senha'}/>
+        <StyledButton validate={handleErrors} text={buttonText} isLoading={isLoading} />
         { isLogged ? <Redirect to='/users' /> : <Redirect to='/' /> }
       </div>
     </div>
@@ -67,9 +75,3 @@ function App() {
 }
 
 export default App;
-
-const formStyles: CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-};

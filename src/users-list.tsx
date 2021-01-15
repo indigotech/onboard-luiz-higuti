@@ -1,6 +1,5 @@
 import React, { useState, useEffect, CSSProperties } from 'react';
 import { getUsers, UsersList } from './components/users';
-import { buttonStyles } from './components/login';
 import { Link } from 'react-router-dom';
 
 const usersPerPage = 10 ;
@@ -65,3 +64,12 @@ export const headerStyles: CSSProperties = {
   padding: '15px',
   alignItems: 'center', 
 }
+
+export const buttonStyles: CSSProperties = {
+  backgroundColor: 'blue',
+  color: 'white',
+  margin: '15px',
+  borderRadius: '10px',
+  width: '150px',
+  height: '30px'
+};
