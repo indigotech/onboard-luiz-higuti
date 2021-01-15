@@ -1,6 +1,6 @@
 import React from 'react';
-import { ApolloClient, gql, InMemoryCache, createHttpLink } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+import { gql } from '@apollo/client';
+import { client } from '../graphql-client';
 
 interface UserListItemProps {
   name: string;
@@ -36,24 +36,6 @@ export const UsersList: React.FC<UsersListProps> = (props) => {
   );
 };
 
-const httpLink = createHttpLink({
-  uri: 'https://tq-template-server-sample.herokuapp.com/graphql',
-});
-
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('@token');
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `${token}` : ' ',
-    },
-  };
-});
-
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link: authLink.concat(httpLink),
-});
 
 export async function getUsers(offset: number, limit: number) {
   try {

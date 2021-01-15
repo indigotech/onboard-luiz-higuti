@@ -5,7 +5,7 @@ interface InputProps {
   onTextChange: (e: string) => void;
 }
 
-interface ButtonProps {
+export interface ButtonProps {
   validate: () => void;
   text: string;
   isLoading: boolean;
@@ -73,7 +73,7 @@ export class SubmitButton extends React.Component<ButtonProps> {
   }
 }
 
-const inputStyles: CSSProperties = {
+export const inputStyles: CSSProperties = {
   marginBottom: '15px',
 };
 
@@ -82,9 +82,11 @@ export const buttonStyles: CSSProperties = {
   color: 'white',
   margin: '15px',
   borderRadius: '10px',
+  width: '150px',
+  height: '30px'
 };
 
-const disableButtonStyles: CSSProperties = {
+export const disableButtonStyles: CSSProperties = {
   backgroundColor: 'grey',
   color: 'white',
 };
