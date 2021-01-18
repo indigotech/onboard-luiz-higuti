@@ -1,8 +1,8 @@
 import React from 'react';
-import { gql } from '@apollo/client';
-import { client } from '../graphql-client';
 import { Link } from 'react-router-dom';
-
+import { client } from '../graphql-client';
+import { UsersQuery } from '../graphql-requests';
+import { StyledLi, StyledUl } from './styled-components';
 
 interface UserListItemProps {
   name: string;
@@ -12,10 +12,10 @@ interface UserListItemProps {
 
 const UserListItem: React.FC<UserListItemProps> = (props) => {
   return (
-    <li>
+    <StyledLi>
       <Link to={`/user/${props.id}`}>{props.name}</Link>
       <p>{props.email}</p>
-    </li>
+    </StyledLi>
   );
 };
 
@@ -31,32 +31,19 @@ interface UsersListProps {
 
 export const UsersList: React.FC<UsersListProps> = (props) => {
   return (
-    <ul>
+    <StyledUl>
       {props.list.map((p) => (
         <UserListItem email={p.email} name={p.name} key={p.id} id={p.id} />
       ))}
-    </ul>
+    </StyledUl>
   );
 };
-
 
 export async function getUsers(offset: number, limit: number) {
   try {
     const result = await client.query({
-      query: gql`
-        query Users {
-          users(pageInfo: { offset: ${offset} , limit: ${limit} }) {
-            nodes {
-              id
-              name
-              email
-            }
-            pageInfo {
-              hasNextPage
-            }
-          }
-        }
-      `,
+      query: UsersQuery,
+      variables: { offset, limit },
     });
     return result;
   } catch (error) {

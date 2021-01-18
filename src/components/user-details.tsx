@@ -1,5 +1,6 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import '../App';
+import { StyledLi, StyledUl } from './styled-components';
 
 interface DetailsItemProps {
   name: string;
@@ -8,10 +9,10 @@ interface DetailsItemProps {
 
 const DetailsListItem: React.FC<DetailsItemProps> = (props) => {
   return (
-    <li style={detailsItemStyles}>
+    <StyledLi>
       <b style={{ marginRight: '5px' }}>{props.name}: </b>
       {props.text}
-    </li>
+    </StyledLi>
   );
 };
 
@@ -26,23 +27,12 @@ interface UserDetailsProps {
 
 export const Details: React.FC<UserDetailsProps> = (props) => {
   return (
-    <ul style={detailsStyles}>
+    <StyledUl>
       <DetailsListItem name='Id' text={props.id} />
       <DetailsListItem name='Nome' text={props.name} />
       <DetailsListItem name='Telefone' text={props.phone} />
       <DetailsListItem name='E-mail' text={props.email} />
       <DetailsListItem name='Role' text={props.role} />
-    </ul>
+    </StyledUl>
   );
-};
-
-const detailsItemStyles: CSSProperties = {
-  margin: '15px',
-};
-
-const detailsStyles: CSSProperties = {
-  listStylePosition: 'inside',
-  alignItems: 'flex-start',
-  display: 'flex',
-  flexDirection: 'column',
 };

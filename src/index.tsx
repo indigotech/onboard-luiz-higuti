@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import ReportWebVitals from './report-web-vitals';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { UsersListPage } from './users-list';
+import { UsersListPage } from './pages/users-list-page';
 import { AddUser } from './pages/add-user-page';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './graphql-client';

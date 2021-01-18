@@ -1,25 +1,27 @@
 import { useQuery } from '@apollo/client';
-import React, { CSSProperties } from 'react';
-import { Details } from '../components/user-details';
-import { headerStyles } from '../users-list';
-import { UserDetails } from '../graphql-client';
+import React from 'react';
 import { useParams } from 'react-router';
+import { H1, StyledHeader } from '../components/styled-components';
+import { Details } from '../components/user-details';
+import { UserDetailsQuery } from '../graphql-requests';
 
 export const UserDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { loading, error, data } = useQuery(UserDetails, { variables: { id: id } });
+  const { loading, error, data } = useQuery(UserDetailsQuery, { variables: { id: id } });
 
   if (loading) {
-    return <h1 style={queryStatusStyle}>Carregando...</h1>;
+    return <H1>Carregando...</H1>;
   }
 
   if (error) {
-    return <h1 style={queryStatusStyle}>Error! {error.message}</h1>;
+    return <H1>Error! {error.message}</H1>;
   }
 
   return (
-    <div>
-      <h1 style={headerStyles}>{data.user.name}</h1>
+    <>
+      <StyledHeader>
+        <H1>{data.user.name}</H1>
+      </StyledHeader>
       <Details
         name={data.user.name}
         id={data.user.id}
@@ -28,10 +30,6 @@ export const UserDetailsPage = () => {
         email={data.user.email}
         role={data.user.role}
       />
-    </div>
+    </>
   );
-};
-
-const queryStatusStyle: CSSProperties = {
-  textAlign: 'center',
 };

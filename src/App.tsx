@@ -1,24 +1,16 @@
-import React, { useState, CSSProperties } from 'react';
-import { gql } from '@apollo/client';
-import './App.css';
-import { EmailInput, PasswordInput, SubmitButton } from './components/login';
-import { Validate } from './components/login-validator';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router';
+import { Input, Button } from './components/form';
+import { Validate } from './components/login-validator';
+import { DivStyled, H1 } from './components/styled-components';
 import { client } from './graphql-client';
+import { LoginMutation } from './graphql-requests';
 
 async function login(email: string, password: string): Promise<boolean> {
   try {
     const result = await client.mutate({
-      mutation: gql`
-      mutation Login {
-        login (data: {email: "${email}", password: "${password}"}) {
-          user {
-            id
-          }
-          token
-        }
-      }
-    `,
+      mutation: LoginMutation,
+      variables: { email, password },
     });
     localStorage.setItem('@token', result.data.login.token);
     return true;
@@ -38,38 +30,33 @@ function App() {
     const errors = Validate(email, password);
     if (errors.length > 0) {
       alert(errors);
-    } 
-    else {
+    } else {
       setIsLoading(true);
       try {
-        await login(email, password);
-        setIsLogged(true);
+        if (await login(email, password)) {
+          setIsLoading(true);
+          setIsLogged(true);
+        } else {
+          setIsLoading(false);
+          setIsLogged(false);
+        }
       } catch (error) {
         alert(error);
         setIsLoading(false);
       }
     }
   }
-
   const buttonText = isLoading ? 'Carregando...' : 'Entrar';
 
   return (
-    <div className='App'>
-      <h1>Bem-vindo(a) à Taqtile!</h1>
-      <div style={formStyles}>
-        <EmailInput text={email} onTextChange={setEmail} />
-        <PasswordInput text={password} onTextChange={setPassword} />
-        <SubmitButton validate={handleErrors} text={buttonText} isLoading={isLoading} />
-        { isLogged ? <Redirect to='/users' /> : <Redirect to='/' /> }
-      </div>
-    </div>
+    <DivStyled>
+      <H1>Bem-vindo(a) à Taqtile!</H1>
+      <Input text={email} onTextChange={setEmail} label={'E-mail'} />
+      <Input text={password} onTextChange={setPassword} label={'Senha'} />
+      <Button validate={handleErrors} text={buttonText} isLoading={isLoading} />
+      {isLogged ? <Redirect to='/users' /> : <Redirect to='/' />}
+    </DivStyled>
   );
 }
 
 export default App;
-
-const formStyles: CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-};
