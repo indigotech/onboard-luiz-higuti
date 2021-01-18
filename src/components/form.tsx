@@ -1,19 +1,18 @@
 import React from 'react';
-import { Button, StyledInput, StyledLabel } from './styled-components';
+import { ButtonStyled, InputStyled, Label } from './styled-components';
 
 interface inputProps {
   text: string;
   onTextChange: (e: string) => void;
-  field: string;
+  label: string;
 }
-
-export const Input: React.FC<inputProps> = (props, { className }) => {
+export const Input: React.FC<inputProps> = (props) => {
   return (
-    <div className={className}>
-      <StyledLabel htmlFor={props.field}>{props.field}</StyledLabel>
-      <StyledInput
+    <div>
+      <Label htmlFor={props.label}>{props.label}</Label>
+      <InputStyled
         type='text'
-        name={props.field}
+        name={props.label}
         onChange={(e) => {
           props.onTextChange(e.target.value);
         }}
@@ -29,14 +28,10 @@ interface ButtonProps {
   isLoading: boolean;
 }
 
-export const StyledButton: React.FC<ButtonProps> = (props) => {
+export const Button: React.FC<ButtonProps> = (props) => {
   return (
-    <Button
-      color={props.isLoading ? "gray" : "blue"}
-      onClick={props.validate}
-      disabled={props.isLoading}
-    >
+    <ButtonStyled color={props.isLoading ? 'gray' : 'blue'} onClick={props.validate} disabled={props.isLoading}>
       {props.text}
-    </Button>
+    </ButtonStyled>
   );
 };

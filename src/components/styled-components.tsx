@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export const StyledInput = styled.input`
+export const InputStyled = styled.input`
   border: 1px gray #777777;
 `;
 
-export const StyledLabel = styled.label`
+export const Label = styled.label`
   font-size: 12px;
   font-weight: regular;
   color: gray;
@@ -13,7 +13,7 @@ export const StyledLabel = styled.label`
   flex-direction: column;
 `;
 
-export const Button = styled.button`
+export const ButtonStyled = styled.button`
   font-size: 16px;
   font-weigth: regular;
   background: ${(props) => props.color || 'blue'};
@@ -23,14 +23,14 @@ export const Button = styled.button`
   margin: 12px;
 `;
 
-export const StyledH1 = styled.h1`
+export const H1 = styled.h1`
   font-size: 24px;
   font-weight: bold;
   color: black;
   margin: 20px;
 `;
 
-export const CenteredDiv = styled.div`
+export const DivStyled = styled.div`
   text-align: center;
   padding: 20px;
 `;

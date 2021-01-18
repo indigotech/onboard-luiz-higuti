@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const UserDetails = gql`
+export const UserDetailsQuery = gql`
   query User($id: ID!) {
     user(id: $id) {
       name
@@ -34,7 +34,7 @@ export const LoginMutation = gql`
   }
 `;
 
-export const Users = gql`
+export const UsersQuery = gql`
   query Users($offset: Int, $limit: Int) {
     users(pageInfo: { offset: $offset, limit: $limit }) {
       nodes {

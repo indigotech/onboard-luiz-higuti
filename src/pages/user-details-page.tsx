@@ -1,26 +1,26 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
 import { useParams } from 'react-router';
-import { StyledH1, StyledHeader } from '../components/styled-components';
+import { H1, StyledHeader } from '../components/styled-components';
 import { Details } from '../components/user-details';
-import { UserDetails } from '../graphql-requests';
+import { UserDetailsQuery } from '../graphql-requests';
 
 export const UserDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { loading, error, data } = useQuery(UserDetails, { variables: { id: id } });
+  const { loading, error, data } = useQuery(UserDetailsQuery, { variables: { id: id } });
 
   if (loading) {
-    return <StyledH1>Carregando...</StyledH1>;
+    return <H1>Carregando...</H1>;
   }
 
   if (error) {
-    return <StyledH1>Error! {error.message}</StyledH1>;
+    return <H1>Error! {error.message}</H1>;
   }
 
   return (
     <>
       <StyledHeader>
-        <StyledH1>{data.user.name}</StyledH1>
+        <H1>{data.user.name}</H1>
       </StyledHeader>
       <Details
         name={data.user.name}

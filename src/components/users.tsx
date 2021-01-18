@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { client } from '../graphql-client';
-import { Users } from '../graphql-requests';
+import { UsersQuery } from '../graphql-requests';
 import { StyledLi, StyledUl } from './styled-components';
 
 interface UserListItemProps {
@@ -42,7 +42,7 @@ export const UsersList: React.FC<UsersListProps> = (props) => {
 export async function getUsers(offset: number, limit: number) {
   try {
     const result = await client.query({
-      query: Users,
+      query: UsersQuery,
       variables: { offset, limit },
     });
     return result;

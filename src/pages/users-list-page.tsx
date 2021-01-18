@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, StyledAddButton, StyledH1, StyledHeader } from '../components/styled-components';
+import { Button } from '../components/form';
+import { H1, StyledAddButton, StyledHeader } from '../components/styled-components';
 import { getUsers, UsersList } from '../components/users';
 
-const usersPerPage = 10;
+const UsersPerPage = 10;
 
 export const UsersListPage: React.FC = () => {
   const [users, setUsers] = useState([]);
@@ -13,12 +14,12 @@ export const UsersListPage: React.FC = () => {
 
   async function setUsersList() {
     try {
-      const json = await getUsers(page, usersPerPage);
-      setUsers(users.concat(json.data.users.nodes));
-      if (!json.data.users.pageInfo.hasNextPage) {
+      const UserJson = await getUsers(page, UsersPerPage);
+      setUsers((prevUsers) => prevUsers.concat(UserJson.data.users.nodes));
+      if (!UserJson.data.users.pageInfo.hasNextPage) {
         setHasNextPage(false);
       }
-      setPage((prevPage) => prevPage + usersPerPage);
+      setPage((prevPage) => prevPage + UsersPerPage);
     } catch (error) {
       alert(error);
     }
@@ -39,19 +40,13 @@ export const UsersListPage: React.FC = () => {
   return (
     <>
       <StyledHeader>
-        <StyledH1>Users List</StyledH1>
+        <H1>Users List</H1>
         <Link to='/add-user'>
           <StyledAddButton>+</StyledAddButton>
         </Link>
       </StyledHeader>
       <UsersList list={users} />
-      {hasNextPage ? (
-        <Button onClick={handleShowMore} color={isLoading ? 'gray' : 'blue'} disabled={isLoading}>
-          {buttonText}
-        </Button>
-      ) : (
-        <></>
-      )}
+      {hasNextPage && <Button validate={handleShowMore} text={buttonText} isLoading={isLoading} /> }
     </>
   );
 };

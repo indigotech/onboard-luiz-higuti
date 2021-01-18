@@ -1,8 +1,8 @@
 import { useMutation } from '@apollo/client';
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
-import { Input, StyledButton } from '../components/form';
-import { CenteredDiv, StyledH1 } from '../components/styled-components';
+import { Input, Button } from '../components/form';
+import { DivStyled, H1 } from '../components/styled-components';
 import { ValidateUser } from '../components/user-validator';
 import { AddUserMutation } from '../graphql-requests';
 
@@ -36,14 +36,14 @@ export const AddUser = () => {
   const buttonText = isLoading ? 'Adicionando...' : 'Adicionar';
 
   return (
-    <CenteredDiv>
-      <StyledH1>Adicionar usuário</StyledH1>
-      <Input text={name} onTextChange={setName} field={'Nome'} />
-      <Input text={email} onTextChange={setEmail} field={'E-mail'} />
-      <Input text={phone} onTextChange={setPhone} field={'Telefone'} />
-      <Input text={birthDate} onTextChange={setBirthDate} field={'Data de Nascimento'} />
-      <StyledButton text={buttonText} validate={handleErros} isLoading={isLoading} />
+    <DivStyled>
+      <H1>Adicionar usuário</H1>
+      <Input text={name} onTextChange={setName} label={'Nome'} />
+      <Input text={email} onTextChange={setEmail} label={'E-mail'} />
+      <Input text={phone} onTextChange={setPhone} label={'Telefone'} />
+      <Input text={birthDate} onTextChange={setBirthDate} label={'Data de Nascimento'} />
+      <Button text={buttonText} validate={handleErros} isLoading={isLoading} />
       {userAdded ? <Redirect to='/users' /> : <Redirect to='/add-user' />}
-    </CenteredDiv>
+    </DivStyled>
   );
 };

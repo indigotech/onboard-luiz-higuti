@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
-import { LoginMutation } from './graphql-requests';
-import { Input, StyledButton } from './components/form';
+import { Input, Button } from './components/form';
 import { Validate } from './components/login-validator';
-import { CenteredDiv, StyledH1 } from './components/styled-components';
+import { DivStyled, H1 } from './components/styled-components';
 import { client } from './graphql-client';
+import { LoginMutation } from './graphql-requests';
 
 async function login(email: string, password: string): Promise<boolean> {
   try {
@@ -49,13 +49,13 @@ function App() {
   const buttonText = isLoading ? 'Carregando...' : 'Entrar';
 
   return (
-    <CenteredDiv>
-      <StyledH1>Bem-vindo(a) à Taqtile!</StyledH1>
-      <Input text={email} onTextChange={setEmail} field={'E-mail'} />
-      <Input text={password} onTextChange={setPassword} field={'Senha'} />
-      <StyledButton validate={handleErrors} text={buttonText} isLoading={isLoading} />
+    <DivStyled>
+      <H1>Bem-vindo(a) à Taqtile!</H1>
+      <Input text={email} onTextChange={setEmail} label={'E-mail'} />
+      <Input text={password} onTextChange={setPassword} label={'Senha'} />
+      <Button validate={handleErrors} text={buttonText} isLoading={isLoading} />
       {isLogged ? <Redirect to='/users' /> : <Redirect to='/' />}
-    </CenteredDiv>
+    </DivStyled>
   );
 }
 
